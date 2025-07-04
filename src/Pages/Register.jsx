@@ -1,5 +1,5 @@
 // src/Pages/Register.jsx
-import React, { useState } from "react";
+import { useState } from "react";
 import { supabase } from "../supabaseClient";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";

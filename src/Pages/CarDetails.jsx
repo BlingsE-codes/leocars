@@ -1,7 +1,8 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { supabase } from "../supabaseClient";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 //import { toast } from "sonner";
 
  function CarDetails() {

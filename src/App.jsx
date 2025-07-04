@@ -4,7 +4,7 @@ import Navbar from "./Navbar.jsx";
 import News from "./Pages/News.jsx";
 import About from "./About.jsx";
 import Login from "./Pages/login.jsx";
-import { BrowserRouter as Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { supabase } from "./supabaseClient";
 import { useEffect, useState } from "react";
 import Footer from "./Pages/footer.jsx";
@@ -53,7 +53,7 @@ function App() {
           <Route path="about" element={<About />} />
           <Route path="news" element={<News />} />
           <Route path="login" element={<Login />} />
-          <Route path="footer" element={<Footer />} />
+          
           <Route path="/car/:id" element={<CarDetails />} />
           <Route path="/" element={<Mainpage />} />
           <Route path="/contact" element={<Contact />} />
@@ -63,6 +63,8 @@ function App() {
         </Routes>
           
       </div>
+
+      <Footer />
     </>
   );
 }

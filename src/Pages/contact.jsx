@@ -1,13 +1,10 @@
-// src/Pages/Contact.jsx
+/* eslint-disable no-unused-vars */
 
-import React from "react";
 import { motion } from "motion/react";
-import ParentWrapper from "../components/ParentWrapper";
-//import "./Contact.css";
 
 function Contact() {
   return (
-    <ParentWrapper>
+    
       <motion.div
         className="contact-container"
         initial={{ opacity: 0, y: 40 }}
@@ -59,7 +56,7 @@ function Contact() {
           🚗✨ We’re here to help you find your perfect car!
         </div>
       </motion.div>
-    </ParentWrapper>
+    
   );
 }
 

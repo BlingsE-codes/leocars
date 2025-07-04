@@ -1,4 +1,4 @@
-import React from 'react';
+
 import profileImg from "./assets/car-images/CEO.JPG";
 import { FaFacebook, FaTiktok, FaInstagram, FaEnvelope } from "react-icons/fa";
 
