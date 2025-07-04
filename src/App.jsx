@@ -1,26 +1,25 @@
 import "./App.css";
 import Navbar from "./Navbar.jsx";
-import Home from "./Pages/Home.jsx";
+// import Home from "./Pages/Home.jsx";
 import News from "./Pages/News.jsx";
 import About from "./About.jsx";
 import Login from "./Pages/login.jsx";
-import Sidebar from "./Sidebar";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Routes, Route } from "react-router-dom";
 import { supabase } from "./supabaseClient";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Footer from "./Pages/footer.jsx";
 import CarDetails from "./Pages/CarDetails.jsx";
 import Mainpage from "./Mainpage";
 import Contact from "./Pages/contact.jsx";
 import SoldOut from "./Pages/soldOut"
 import Register from "./Pages/Register";
-import { useNavigate } from "react-router-dom";
-import { toast } from "sonner";
+
+
 
 function App() {
 
   const [user, setUser] = useState(null);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   useEffect(() => {
     const getUser = async () => {
