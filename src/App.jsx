@@ -9,7 +9,7 @@ import { supabase } from "./supabaseClient";
 import { useEffect, useState } from "react";
 import Footer from "./Pages/footer.jsx";
 import CarDetails from "./Pages/CarDetails.jsx";
-import Mainpage from "./Mainpage.jsx";
+import Mainpage from "./mainpage.jsx";
 import Contact from "./Pages/contact.jsx";
 import SoldOut from "./Pages/soldOut.jsx"
 import Register from "./Pages/Register.jsx";
