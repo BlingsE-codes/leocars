@@ -1,9 +1,9 @@
-// src/Pages/SoldOut.jsx
+
 
 import React, { useEffect, useState } from "react";
 import { supabase } from "../supabaseClient";
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 //import "./SoldOut.css";
 
 function SoldOut() {
