@@ -1,7 +1,7 @@
 // src/Pages/Contact.jsx
 
 import React from "react";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import ParentWrapper from "../components/ParentWrapper";
 //import "./Contact.css";
 
