@@ -47,7 +47,7 @@ function Contact() {
             <h3>📧 Email</h3>
             <p>Send us a detailed inquiry and we’ll respond promptly.</p>
             <a href="mailto:omoruyilucky@gmail.com" className="contact-link">
-              charlichal2@gmail.com
+              omoruyilucky@gmail.com
             </a>
           </div>
         </div>
