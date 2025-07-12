@@ -431,7 +431,7 @@ select option {
 }
 
 .ad-card {
-  margin-bottom: 20px;
+  margin-bottom: 2px;
   text-align: center;
 }
 
@@ -529,8 +529,8 @@ select option {
   top: 10px;
   align-self: flex-start;
   width: 300px;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin-top: 2px;
+  margin-bottom: 2px;
   padding: 10px;
   background: #f8f9fa;
   border: 1px solid #ddd;
@@ -543,7 +543,7 @@ select option {
 
 
 .ad-card {
-  margin-bottom: 20px;
+  margin-bottom: 2px;
   text-align: center;
 }
 
@@ -1300,7 +1300,7 @@ car-details-container h3 {
 }
 
 .contact-footer {
-  margin-top: 50px;
+  margin-top: 10px;
   font-size: 0.95rem;
   color: #6b7280; /* Tailwind gray-500 */
 }
@@ -1740,8 +1740,11 @@ p {
 @media (max-width: 768px) {
   .sidebar {
     max-width: 100%;
-    margin: 2rem auto;
+    margin: 0.1rem auto;
     
+  }
+  .sidebar-wrapper{
+    margin-bottom: 1px;
   }
 }
 
@@ -1786,7 +1789,7 @@ p {
 @media screen and (max-width: 768px) {
   .car-details {
     margin-left: 0;     /* Full width on mobile, no sidebar on left */
-    margin-bottom: 80px; /* Optional: Add space for bottom sidebar if needed */
+    margin-bottom: 0px; /* Optional: Add space for bottom sidebar if needed */
   }
 }
 
@@ -2099,6 +2102,11 @@ p {
   color: #eee;
   text-align: center;
   padding: 2rem;
+}
+@media(max-width: 768px) {
+  .footer{
+    margin-top: 5px;
+  }
 }
 
 .brand-list {
