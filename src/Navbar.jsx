@@ -18,12 +18,9 @@ function Navbar() {
     };
 
     fetchUser();
-
-    // Auth state listener to update name on login/logout
     const { data: listener } = supabase.auth.onAuthStateChange(() => {
       fetchUser();
     });
-
     return () => listener.subscription.unsubscribe();
   }, []);
 
@@ -39,31 +36,41 @@ function Navbar() {
     }
   };
 
-  const handlerentcar = () => {
+  const handleRentCar = () => {
     toast("Let us know your choice of car. We are a call away. Just contact us");
   };
+  const handleCarReg = () => {
+    toast("Contact us using the contact page for car registration details.");
+  };
+  
 
   return (
-    <nav className="navbar">
-      <div className="navbar-left">
-        <a href="/"><h3 className="navbar-brand">🚗 LEOS AUTOS</h3></a>
-        <Link to="/" className="nav-link">🏠 Home</Link>
+    <nav className="nav">
+      <div className="nav-left">
+        <Link to="/" className="nav-logo">🚗 LEOS AUTOS</Link>
+        <Link to="/home" className="nav-link">🏠 Home</Link>
         <Link to="/about" className="nav-link">ℹ️ About</Link>
         <Link to="/contact" className="nav-link">📞 Contact</Link>
-        <Link to="/sold" className="nav-link">Sold Cars</Link>
-
+        <Link to="/sold" className="nav-link">✅ Sold Cars</Link>
         <div className="nav-dropdown">
           <select
             onChange={(e) => {
               const url = e.target.value;
-              if (url === "rent") handlerentcar();
+              if (url === "rent") handleRentCar();
               else if (url) window.open(url, "_blank");
+            }}
+            onClick={(e) => {
+              if (e.target.value === "reg") {
+                e.preventDefault();
+                handleCarReg();
+              }
             }}
             defaultValue=""
             className="nav-select"
           >
-            <option value="">More Cars ⬇</option>
+            <option value="">More Options ⬇</option>
             <option value="rent">Rent a Car</option>
+            <option value="reg">Car Reg</option>
             <option value="https://jiji.ng/cars">JIJI</option>
             <option value="https://www.copart.com/content/us/en/landing-page/nigeria">Copart</option>
             <option value="https://www.iaai.com/marketing/auction-vehicles-in-nigeria">IAAI</option>
@@ -71,16 +78,26 @@ function Navbar() {
         </div>
       </div>
 
-      <div className="navbar-right">
+      <div className="nav-right">
         {user ? (
           <>
-            <span className="signed-in">👋 Welcome{fullName ? `, ${fullName}` : ""}</span>
-            <button className="nav-btn" onClick={handleSignOut}>Sign Out</button>
+            <span className="nav-user">👋 Welcome{fullName ? `, ${fullName}` : ""}</span>
+            <button
+              className="nav-btn logged-in"
+              onClick={handleSignOut}
+            >
+              Sign Out
+            </button>
           </>
         ) : (
           <>
-            <button className="nav-btn" onClick={() => navigate("/login")}>Login</button>
-            <Link to="/register" className="nav-link register-link">Register</Link>
+            <button
+              className="nav-btn logged-out"
+              onClick={() => navigate("/login")}
+            >
+              Login
+            </button>
+            <Link to="/register" className="nav-link nav-register">Register</Link>
           </>
         )}
       </div>

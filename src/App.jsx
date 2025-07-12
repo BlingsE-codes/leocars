@@ -1,6 +1,6 @@
 import "./App.css";
 import Navbar from "./Navbar.jsx";
-// import Home from "./Pages/Home.jsx";
+import Home from "./mainpage.jsx";
 import News from "./Pages/News.jsx";
 import About from "./About.jsx";
 import Login from "./Pages/login.jsx";
@@ -19,6 +19,7 @@ import Register from "./Pages/Register.jsx";
 function App() {
 
   const [user, setUser] = useState(null);
+
   // const navigate = useNavigate();
 
   useEffect(() => {
@@ -53,7 +54,7 @@ function App() {
           <Route path="about" element={<About />} />
           <Route path="news" element={<News />} />
           <Route path="login" element={<Login />} />
-          
+          <Route path="home" element={<Mainpage />} />
           <Route path="/car/:id" element={<CarDetails />} />
           <Route path="/" element={<Mainpage />} />
           <Route path="/contact" element={<Contact />} />

@@ -10,6 +10,8 @@ import { motion } from "motion/react";
 function SoldOut() {
   const [soldCars, setSoldCars] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [soldPrice, setSoldPrice] = useState("");
+
 
   useEffect(() => {
     fetchSoldCars();
@@ -26,6 +28,8 @@ function SoldOut() {
     }
     setLoading(false);
   };
+
+  
 
 
   if (loading) return (
@@ -47,26 +51,36 @@ function SoldOut() {
         These cars have been successfully sold!
       </p>
 
-      {soldCars.length === 0 ? (
+        {soldCars.length === 0 ? (
         <p className="sold-empty">No sold cars yet 🚗✨</p>
       ) : (
-        <div className="sold-list">
-          {soldCars.map((car) => (
-            <div key={car.id} className="sold-card">
-              <img
-                src={car.image_urls[0]}
-                alt={`${car.make} ${car.model}`}
-                className="sold-image"
-              />
-              <div className="sold-info">
-                <h3>{car.make} {car.model}</h3>
-                <p>₦{car.price.toLocaleString()}</p>
-                <p>Year: {car.year}</p>
-                <p>Sold on: {new Date(car.sold_date).toLocaleDateString()}</p>
+        <>
+          <div className="sold-list">
+            {soldCars.map((car) => (
+              <div key={car.id} className="sold-card">
+                <img
+                  src={car.image_urls[0]}
+                  alt={`${car.make} ${car.model}`}
+                  className="sold-image"
+                />
+                <div className="sold-info">
+                  <h3>{car.make} {car.model}</h3>
+                  <p>₦{car.price.toLocaleString()}</p>
+                  <p>Year: {car.year}</p>
+                  <p>Sold on: {new Date(car.sold_date).toLocaleDateString()}</p>
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+          <p className="sold-count">
+            Total Sold Cars: {soldCars.length} 
+            {soldCars.length > 0 && (
+              <span className="sold-price">,<br></br>
+                Total Revenue: ₦{soldCars.reduce((total, car) => total + car.price, 0).toLocaleString()}
+              </span>
+            )}
+          </p>
+        </>
       )}
 
       <Link to="/" className="sold-back">← Back to Home</Link>

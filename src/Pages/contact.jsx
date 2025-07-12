@@ -23,8 +23,8 @@ function Contact() {
             <p>
               Speak directly with our team for quick answers and availability.
             </p>
-            <a href="tel:+2348037834432" className="contact-link">
-              +234 803 783 4432
+            <a href="tel:+2347032531338" className="contact-link">
+              +2347032531338
             </a>
           </div>
 
@@ -33,7 +33,7 @@ function Contact() {
             <h3>💬 WhatsApp</h3>
             <p>Chat with us on WhatsApp for easy, instant support.</p>
             <a
-              href="https://wa.me/2348037834432"
+              href="https://wa.me/+2347032531338"
               target="_blank"
               rel="noopener noreferrer"
               className="contact-link"
@@ -46,7 +46,7 @@ function Contact() {
           <div className="contact-card">
             <h3>📧 Email</h3>
             <p>Send us a detailed inquiry and we’ll respond promptly.</p>
-            <a href="mailto:charlichal2@gmail.com" className="contact-link">
+            <a href="mailto:omoruyilucky@gmail.com" className="contact-link">
               charlichal2@gmail.com
             </a>
           </div>
