@@ -3,6 +3,15 @@ import { useParams, useNavigate } from "react-router-dom";
 import { supabase } from "../supabaseClient";
 import { motion } from "motion/react";
 
+
+function formatNumberWithCommas(value) {
+  // Remove all non-digit chars first
+  const numericValue = value.replace(/\D/g, "");
+  if (!numericValue) return "";
+  return Number(numericValue).toLocaleString();
+}
+
+
 function CarDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -93,7 +102,7 @@ function CarDetails() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
         >
-          ₦{car.price.toLocaleString()}
+          ₦ {formatNumberWithCommas(car.price).toLocaleString()}
         </motion.p>
 
         <motion.div

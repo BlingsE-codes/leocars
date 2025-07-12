@@ -111,8 +111,15 @@ form textarea:focus {
   background: #fff;
   border: 1px solid #ddd;
   border-radius: 12px;
-  padding: 15px;
+  padding: 1rem;
   transition: box-shadow 0.3s, transform 0.3s;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 600px;
+ 
+
+
 
 
 }
@@ -134,9 +141,9 @@ form textarea:focus {
 
 .car-card img {
   width: 100%;
-  height: 100%;
+  height: 300px;
   border-radius: 8px;
-  object-fit: contain;
+  object-fit: cover;
   margin-bottom: 4px;
 
 }
@@ -148,6 +155,8 @@ form textarea:focus {
 .car-card-p {
   color: #007bff;
   font-weight: bold;
+  font-size: 0.9rem;
+  line-height: 1.2;
 }
 
 .car-card button {
@@ -1801,6 +1810,7 @@ p {
   justify-content: flex-start;
   gap: 0.5rem;
   margin-bottom: 1rem;
+
 }
 
 .search-bar input[type="text"],

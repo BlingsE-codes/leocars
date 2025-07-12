@@ -7,6 +7,14 @@ import { Link } from "react-router-dom";
 import { motion } from "motion/react";
 //import "./SoldOut.css";
 
+function formatNumberWithCommas(value) {
+  // Remove all non-digit chars first
+  const numericValue = value.replace(/\D/g, "");
+  if (!numericValue) return "";
+  return Number(numericValue).toLocaleString();
+}
+
+
 function SoldOut() {
   const [soldCars, setSoldCars] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -30,7 +38,7 @@ function SoldOut() {
   };
 
   
-
+const totalRevenue = soldCars.reduce((total, car) => total + Number(car.price || 0), 0)
 
   if (loading) return (
   <div className="loading-container">
@@ -65,8 +73,9 @@ function SoldOut() {
                 />
                 <div className="sold-info">
                   <h3>{car.make} {car.model}</h3>
-                  <p>₦{car.price.toLocaleString()}</p>
+                  <p>₦ {formatNumberWithCommas(car.price).toLocaleString()}</p>
                   <p>Year: {car.year}</p>
+                  <p>Chassis: {car.chassis}</p>
                   <p>Sold on: {new Date(car.sold_date).toLocaleDateString()}</p>
                 </div>
               </div>
@@ -76,7 +85,7 @@ function SoldOut() {
             Total Sold Cars: {soldCars.length} 
             {soldCars.length > 0 && (
               <span className="sold-price">,<br></br>
-                Total Revenue: ₦{soldCars.reduce((total, car) => total + car.price, 0).toLocaleString()}
+                Total Revenue: ₦{(totalRevenue)}
               </span>
             )}
           </p>

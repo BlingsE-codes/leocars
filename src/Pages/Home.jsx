@@ -3,6 +3,7 @@ import { supabase } from "../supabaseClient";
 import { toast } from "sonner";
 import { useSearchParams, Link } from "react-router-dom";
 import Pagination from "../Pages/pagination.jsx";
+import imageCompression from 'browser-image-compression';
 
 
 
@@ -50,7 +51,7 @@ useEffect(() => {
   };
 
   fetchAdminsAndUser();
-}, []);
+}, [adminEmails]);
 
 
 
@@ -79,7 +80,7 @@ useEffect(() => {
       setUser(user);
       if (user) {
         setUserEmail(user.email);
-        //setIsAdmin(ADMIN_EMAILS.has(user.email));
+        setIsAdmin(adminEmails.has(user.email));
       }
     };
     getUser();
@@ -182,34 +183,53 @@ useEffect(() => {
     }));
   };
 
-  const handleUpload = async (e) => {
-    e.preventDefault();
-    const { make, model, year, price, chassis, comment, mileage, } = newCar;
+ const handleUpload = async (e) => {
+  e.preventDefault();
+  const { make, model, year, price, chassis, comment, mileage } = newCar;
 
-    if (!make || !model || !year || !price || !chassis || imageFile.length === 0) {
-      toast.error("Fill all fields and upload at least one image");
-      return;
-    }
+  if (!make || !model || !year || !price || !chassis || imageFile.length === 0) {
+    toast.error("Fill all fields and upload at least one image");
+    return;
+  }
 
-    await toast.promise(
-      (async () => {
-        const imageUrls = [];
-        for (const file of imageFile) {
-          const ext = file.name.split(".").pop();
-          const name = `${Date.now()}-${Math.random().toString(36).substring(2)}.${ext}`;
-          const path = `cars/${name}`;
+  await toast.promise(
+    (async () => {
+      const imageUrls = [];
 
-          const { error: uploadError } = await supabase.storage.from("car-images").upload(path, file);
-          if (uploadError) {
-            console.error(uploadError);
-            throw new Error("Image upload failed");
-          }
+      for (const file of imageFile) {
+        // ✅ Compress image on client side
+        const compressedFile = await imageCompression(file, {
+          maxSizeMB: 0.4,               // Maximum size in MB
+          maxWidthOrHeight: 900,     // Resize to max 1200px
+          useWebWorker: true,         // Use web worker for faster performance
+        });
 
-          const { data } = supabase.storage.from("car-images").getPublicUrl(path);
-          imageUrls.push(data.publicUrl);
+        console.log(
+          `Original: ${(file.size / 1024 / 1024).toFixed(2)} MB, Compressed: ${(compressedFile.size / 1024 / 1024).toFixed(2)} MB`
+        );
+
+        const ext = compressedFile.name.split(".").pop();
+        const name = `${Date.now()}-${Math.random().toString(36).substring(2)}.${ext}`;
+        const path = `cars/${name}`;
+
+        const { error: uploadError } = await supabase.storage
+          .from("car-images")
+          .upload(path, compressedFile);
+
+        if (uploadError) {
+          console.error(uploadError);
+          throw new Error("Image upload failed");
         }
 
-        const { error: insertError } = await supabase.from("cars").insert([{
+        const { data } = supabase.storage
+          .from("car-images")
+          .getPublicUrl(path);
+
+        imageUrls.push(data.publicUrl);
+      }
+
+      const { error: insertError } = await supabase.from("cars").insert([
+        {
           make,
           model,
           year: +year,
@@ -218,37 +238,39 @@ useEffect(() => {
           comment,
           condition,
           shift,
-          mileage: mileage,
+          mileage,
           image_urls: imageUrls,
           user_email: userEmail,
-        }]);
+          created_at: new Date().toISOString()
+        },
+      ]);
 
-        if (insertError) {
-          console.error(insertError);
-          throw new Error("Upload failed");
-        }
-
-        setNewCar({
-          make: "",
-          model: "",
-          year: "",
-          price: "",
-          chassis: "",
-          comment: "",
-          mileage: "",
-        });
-        setImageFile([]);
-        fetchCars();
-      })(),
-      {
-        loading: "Uploading car...",
-        success: "Car uploaded successfully!",
-        error: (err) => err.message || "Upload failed",
+      if (insertError) {
+        console.error(insertError);
+        throw new Error("Upload failed");
       }
-    );
-    
-  };
-  
+
+      // ✅ Reset form
+      setNewCar({
+        make: "",
+        model: "",
+        year: "",
+        price: "",
+        chassis: "",
+        comment: "",
+        mileage: "",
+      });
+      setImageFile([]);
+      fetchCars();
+    })(),
+    {
+      loading: "Uploading car...",
+      success: "Car uploaded successfully!",
+      error: (err) => err.message || "Upload failed",
+    }
+  );
+};
+
 
 
 
@@ -321,10 +343,13 @@ useEffect(() => {
           <select value={activeTab} onChange={(e) => setActiveTab(e.target.value)}>
             <option value="view">🚗 View Cars</option>
             {isAdmin && <option value="upload">📤 Upload Car</option>}
+            
           </select>
+           <button type="button" className="Search-btn" onClick={() => setActiveTab("view")}>HOME</button>
         </div>
 {activeTab === "upload" && isAdmin && (
   <form onSubmit={handleUpload} className="upload-form">
+   
     <h3 className="upload-title">🚗 Upload New Car</h3>
 
     <input type="text" placeholder="Make" value={newCar.make} onChange={(e) => setNewCar({ ...newCar, make: e.target.value })} className="upload-input" />
