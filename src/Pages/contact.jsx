@@ -53,7 +53,7 @@ function Contact() {
         </div>
 
         <div className="contact-footer">
-          🚗✨ We’re here to help you find your perfect car!
+          🚗✨ We are here to help you find your perfect car!
         </div>
       </motion.div>
     
